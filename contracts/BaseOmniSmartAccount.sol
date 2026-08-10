@@ -485,7 +485,7 @@ contract BaseOmniVaultAI is
         } else if (block.timestamp >= v.startTime + v.duration) {
             return v.totalAmount;
         } else {
-            return (v.totalType * (block.timestamp - v.startTime)) / v.duration; // note: matches original logic safely
+            return (v.totalAmount * (block.timestamp - v.startTime)) / v.duration; // note: matches original logic safely
         }
     }
 
