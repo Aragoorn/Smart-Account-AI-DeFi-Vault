@@ -1,5 +1,5 @@
+<img width="1075" height="980" alt="Screenshot (2360)" src="https://github.com/user-attachments/assets/f7078824-da99-4345-b69e-3d61a0b9a4ef" />
 
-```markdown
 # 🚀 Base OmniVault AI (Ultimate God-Tier Sovereign Smart Account)
 
 > An enterprise-grade, autonomous Account Abstraction (ERC-4337) smart vault optimized for the **Base** ecosystem, featuring AI Agent automated strategies, Passkey biometrics, Social Recovery, and advanced multi-layered security.
@@ -11,7 +11,7 @@
 **Base OmniVault AI** bridges the gap between next-generation Consumer Accounts and Autonomous AI Finance. The system is designed to provide maximum user security, biometric-first onboarding, and 24/7 automated portfolio management on the **Base** network.
 
 > **Key Architectural Highlight:**  
-> *«این قرارداد مجهز به لایه Account Abstraction است و توسط یک Agent هوش مصنوعی مستقل که از طریق پروتکل‌های اتوماسیون غیرمتمرکز روی شبکه Base مدیریت می‌شود، به صورت ۲۴ ساعته و کاملاً خودکار (Autonomous) کار می‌کند.»*
+> *"This contract is equipped with the Account Abstraction layer and is managed 24/7 and fully autonomously by an independent AI Agent operating via decentralized automation protocols on the Base network."*
 
 ---
 
@@ -36,7 +36,7 @@
 * **Automated Reset & Cooldowns:** Enforces strict transaction intervals (`tradeCooldown`) and automatically resets daily limits every 24 hours.
 
 ### 3. Institutional-Grade Security & Circuit Breakers
-* **Automated Circuit Breaker:** If an AI agent or operator encounters 3 consecutive transaction failures (`MAX_CONSECUTIVE_FAILURES = 3`), the vault automatically triggers an emergency `pause()` to protect user assets.
+* **Automated Circuit Breaker:** If an AI agent or operator encounters 2 consecutive transaction failures (`MAX_CONSECUTIVE_FAILURES = 2`), the vault automatically triggers an emergency `pause()` to protect user assets.
 * **Flash-Loan Vector Guard (`noFlashLoan`):** Blocks malicious atomic flash-loan attack vectors by validating transaction gas dynamics.
 * **Chainlink Oracle Validation:** Validates real-time price feeds (`_checkOraclePrice`) and checks for price staleness (`PRICE_STALENESS_THRESHOLD`) before executing trades.
 * **Slippage & Output Guard:** Integrates strict basis-point (BPS) slippage boundaries to protect trades against MEV and sandwich bots on Base DEXs (e.g., Aerodrome).
@@ -71,7 +71,6 @@ my-base-ai-vault/
 ├── test/
 │   └── BaseOmniVaultAI.test.ts      # Comprehensive line-by-line test suite
 └── README.md                        # Project Documentation
-
 ```
 
 ---
@@ -96,7 +95,6 @@ npm install
 
 # Run Hardhat tests
 npx hardhat test
-
 ```
 
 ---
@@ -113,7 +111,6 @@ npx hardhat test
 ```bash
 cd ai-agent
 npm install ethers dotenv
-
 ```
 
 ### 2. Configure Environment Variables
@@ -121,36 +118,30 @@ npm install ethers dotenv
 Create a `.env` file in your workspace:
 
 ```env
-BASE_RPC_URL=[https://mainnet.base.org](https://mainnet.base.org)
-BASE_SEPOLIA_RPC_URL=[https://sepolia.base.org](https://sepolia.base.org)
-AI_AGENT_PRIVATE_KEY=your_private_key_here
-ADMIN_ADDRESS=your_admin_address_here
-TIMELOCK_ADDRESS=your_timelock_address_here
+PRIVATE_KEY=0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80
+BASE_RPC_URL=https://mainnet.base.org
+BASE_SEPOLIA_RPC_URL=https://sepolia.base.org
+AI_AGENT_PRIVATE_KEY=0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80
+ADMIN_ADDRESS=0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
+TIMELOCK_ADDRESS=0x70997970C51812dc3A010C7d01b50e0d17dc79C8
 ORACLE_ADDRESS=0x71041dddad3595f9ce4bcd3c09107954b377abca
 ENTRY_POINT_ADDRESS=0x5FF137D4b0FDCD42Dca39c72516Le33A032Bd145
-
 ```
 
 ### 3. Deploy Contract via Hardhat
 
 ```bash
 npx hardhat run scripts/deploy.ts --network base-sepolia
-
 ```
 
 ### 4. Run the AI Keeper Agent
 
 ```bash
 npx ts-node ai-agent/keeperBot.ts
-
 ```
 
 ---
 
 ## 📜 License
 
-This project is licensed under the **MIT License**.
-
-```
-
-```
+This project is licensed under the **MIT License**
