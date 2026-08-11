@@ -1,3 +1,5 @@
+<img width="1007" height="972" alt="test compile" src="https://github.com/user-attachments/assets/4cd524b2-5efd-4e2c-84ad-438d01edb617" />
+
 # Base OmniVault AI
 
 **Production-grade UUPS Upgradeable Smart Account (ERC-4337) built for autonomous AI agents on Base**
