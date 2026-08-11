@@ -76,7 +76,7 @@ contract BaseOmniVaultAI is
 
     // Automated Circuit Breaker for consecutive trade failures
     uint256 public consecutiveFailures;
-    uint256 public constant MAX_CONSECUTIVE_FAILURES = 3;
+    uint256 public constant MAX_CONSECUTIVE_FAILURES = 2;
 
     uint256 public tradeCooldown;
     mapping(address => uint256) public lastTradeTimestamp;
@@ -223,6 +223,15 @@ contract BaseOmniVaultAI is
         emit SocialGuardianUpdated(guardian, status);
     }
 
+    // توابع کمکی برای هماهنگی با فایل‌های تست
+    function recoveryApprovalsCount() external view returns (uint256) {
+        return activeRecovery.approvalsCount;
+    }
+
+    function socialGuardians(address guardian) external view returns (bool) {
+        return isSocialGuardian[guardian];
+    }
+
     function proposeRecovery(address newSigner) external {
         require(isSocialGuardian[msg.sender], "Only social guardian can propose");
         require(newSigner != address(0), "Invalid new signer");
@@ -277,7 +286,7 @@ contract BaseOmniVaultAI is
     }
 
     function acceptAdmin() external {
-        require(msg.sender == pendingAdmin, "Only pending admin can accept");
+        require(msg.sender == pendingAdmin, "Not pending admin");
         _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
         pendingAdmin = address(0);
         emit AdminTransferCompleted(msg.sender);
@@ -373,13 +382,14 @@ contract BaseOmniVaultAI is
         require(_checkOraclePrice(), "Oracle validation failed");
 
         lastTradeTimestamp[msg.sender] = block.timestamp;
-
-        (bool success, ) = target.call{value: value}(data);
+(bool success, ) = target.call{value: value}(data);
         
         if (!success) {
             consecutiveFailures++;
             if (consecutiveFailures >= MAX_CONSECUTIVE_FAILURES) {
-                _pause();
+                if (!paused()) {
+                    _pause();
+                }
                 emit AutomatedCircuitBreakerTriggered(consecutiveFailures);
             }
             revert("Trade execution failed");
@@ -485,7 +495,7 @@ contract BaseOmniVaultAI is
         } else if (block.timestamp >= v.startTime + v.duration) {
             return v.totalAmount;
         } else {
-            return (v.totalAmount * (block.timestamp - v.startTime)) / v.duration; // note: matches original logic safely
+            return (v.totalAmount * (block.timestamp - v.startTime)) / v.duration;
         }
     }
 
