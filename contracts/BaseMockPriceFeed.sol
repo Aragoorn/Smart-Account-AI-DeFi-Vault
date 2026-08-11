@@ -17,7 +17,7 @@ contract BaseMockPriceFeed {
     constructor(int256 initialPrice) {
         owner = msg.sender;
         s_roundId = 1;
-        s_price = initialPrice > 0 ? initialPrice : 3000 * 10**8; // Default mock price: $3000 with 8 decimals
+        s_price = initialPrice > 0 ? initialPrice : int256(3000 * 10**8);
         s_updatedAt = block.timestamp;
     }
 
